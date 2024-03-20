@@ -1,0 +1,948 @@
+From eb69cbcb7c294747801527b93074f6dedb3acf22 Mon Sep 17 00:00:00 2001
+From: 001183643 <zeinab.ziabari@student.tafesa.edu.au>
+Date: Wed, 20 Mar 2024 16:53:51 +1030
+Subject: [PATCH 1/4] Initial loading of the files
+
+---
+ Ticketing/Ticketing.sln                       |  26 +++
+ Ticketing/Ticketing/Program.cs                |  22 +++
+ .../Ticketing/Properties/AssemblyInfo.cs      |  37 ++++
+ .../Properties/Resources.Designer.cs          |  63 +++++++
+ Ticketing/Ticketing/Properties/Resources.resx | 117 ++++++++++++
+ .../Ticketing/Properties/Settings.Designer.cs |  26 +++
+ .../Ticketing/Properties/Settings.settings    |   7 +
+ Ticketing/Ticketing/TicketPrice.cs            |  77 ++++++++
+ Ticketing/Ticketing/Ticketing.csproj          | 104 ++++++++++
+ Ticketing/Ticketing/TicketsForm.Designer.cs   | 178 ++++++++++++++++++
+ Ticketing/Ticketing/TicketsForm.cs            |  49 +++++
+ Ticketing/Ticketing/TicketsForm.resx          | 120 ++++++++++++
+ Ticketing/Ticketing/app.config                |   4 +
+ 13 files changed, 830 insertions(+)
+ create mode 100644 Ticketing/Ticketing.sln
+ create mode 100644 Ticketing/Ticketing/Program.cs
+ create mode 100644 Ticketing/Ticketing/Properties/AssemblyInfo.cs
+ create mode 100644 Ticketing/Ticketing/Properties/Resources.Designer.cs
+ create mode 100644 Ticketing/Ticketing/Properties/Resources.resx
+ create mode 100644 Ticketing/Ticketing/Properties/Settings.Designer.cs
+ create mode 100644 Ticketing/Ticketing/Properties/Settings.settings
+ create mode 100644 Ticketing/Ticketing/TicketPrice.cs
+ create mode 100644 Ticketing/Ticketing/Ticketing.csproj
+ create mode 100644 Ticketing/Ticketing/TicketsForm.Designer.cs
+ create mode 100644 Ticketing/Ticketing/TicketsForm.cs
+ create mode 100644 Ticketing/Ticketing/TicketsForm.resx
+ create mode 100644 Ticketing/Ticketing/app.config
+
+diff --git a/Ticketing/Ticketing.sln b/Ticketing/Ticketing.sln
+new file mode 100644
+index 0000000..2dfea8e
+--- /dev/null
++++ b/Ticketing/Ticketing.sln
+@@ -0,0 +1,26 @@
++﻿
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio Version 16
++VisualStudioVersion = 16.0.32802.440
++MinimumVisualStudioVersion = 10.0.40219.1
++Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing", "Ticketing\Ticketing.csproj", "{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}"
++EndProject
++Global
++	GlobalSection(SolutionConfigurationPlatforms) = preSolution
++		Debug|Any CPU = Debug|Any CPU
++		Release|Any CPU = Release|Any CPU
++		Description = Test
++	EndGlobalSection
++	GlobalSection(ProjectConfigurationPlatforms) = postSolution
++		{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
++		{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
++		{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
++		{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}.Release|Any CPU.Build.0 = Release|Any CPU
++	EndGlobalSection
++	GlobalSection(SolutionProperties) = preSolution
++		HideSolutionNode = FALSE
++	EndGlobalSection
++	GlobalSection(ExtensibilityGlobals) = postSolution
++		SolutionGuid = {793F21D3-B3B8-4E2D-AA06-A4F70C2AFE4D}
++	EndGlobalSection
++EndGlobal
+diff --git a/Ticketing/Ticketing/Program.cs b/Ticketing/Ticketing/Program.cs
+new file mode 100644
+index 0000000..d511044
+--- /dev/null
++++ b/Ticketing/Ticketing/Program.cs
+@@ -0,0 +1,22 @@
++﻿using System;
++using System.Collections.Generic;
++using System.Linq;
++using System.Windows.Forms;
++
++
++namespace Ticketing
++{
++    static class Program
++    {
++        /// <summary>
++        /// The main entry point for the application.
++        /// </summary>
++        [STAThread]
++        static void Main()
++        {
++            Application.EnableVisualStyles();
++            Application.SetCompatibleTextRenderingDefault(false);
++            Application.Run(new TicketsForm());
++        }
++    }
++}
+diff --git a/Ticketing/Ticketing/Properties/AssemblyInfo.cs b/Ticketing/Ticketing/Properties/AssemblyInfo.cs
+new file mode 100644
+index 0000000..d59214b
+--- /dev/null
++++ b/Ticketing/Ticketing/Properties/AssemblyInfo.cs
+@@ -0,0 +1,37 @@
++﻿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++
++// General Information about an assembly is controlled through the following 
++// set of attributes. Change these attribute values to modify the information
++// associated with an assembly.
++[assembly: AssemblyTitle("Ticketing")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("Ticketing")]
++[assembly: AssemblyCopyright("Copyright ©  2010")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// Setting ComVisible to false makes the types in this assembly not visible 
++// to COM components.  If you need to access a type in this assembly from 
++// COM, set the ComVisible attribute to true on that type.
++[assembly: ComVisible(false)]
++
++// The following GUID is for the ID of the typelib if this project is exposed to COM
++[assembly: Guid("ee48a768-069a-4a35-ac6a-d77ca1c14fd2")]
++
++// Version information for an assembly consists of the following four values:
++//
++//      Major Version
++//      Minor Version 
++//      Build Number
++//      Revision
++//
++// You can specify all the values or you can default the Build and Revision Numbers 
++// by using the '*' as shown below:
++// [assembly: AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+diff --git a/Ticketing/Ticketing/Properties/Resources.Designer.cs b/Ticketing/Ticketing/Properties/Resources.Designer.cs
+new file mode 100644
+index 0000000..b552798
+--- /dev/null
++++ b/Ticketing/Ticketing/Properties/Resources.Designer.cs
+@@ -0,0 +1,63 @@
++﻿//------------------------------------------------------------------------------
++// <auto-generated>
++//     This code was generated by a tool.
++//     Runtime Version:4.0.30319.42000
++//
++//     Changes to this file may cause incorrect behavior and will be lost if
++//     the code is regenerated.
++// </auto-generated>
++//------------------------------------------------------------------------------
++
++namespace Ticketing.Properties {
++    using System;
++    
++    
++    /// <summary>
++    ///   A strongly-typed resource class, for looking up localized strings, etc.
++    /// </summary>
++    // This class was auto-generated by the StronglyTypedResourceBuilder
++    // class via a tool like ResGen or Visual Studio.
++    // To add or remove a member, edit your .ResX file then rerun ResGen
++    // with the /str option, or rebuild your VS project.
++    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
++    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
++    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
++    internal class Resources {
++        
++        private static global::System.Resources.ResourceManager resourceMan;
++        
++        private static global::System.Globalization.CultureInfo resourceCulture;
++        
++        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
++        internal Resources() {
++        }
++        
++        /// <summary>
++        ///   Returns the cached ResourceManager instance used by this class.
++        /// </summary>
++        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
++        internal static global::System.Resources.ResourceManager ResourceManager {
++            get {
++                if (object.ReferenceEquals(resourceMan, null)) {
++                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ticketing.Properties.Resources", typeof(Resources).Assembly);
++                    resourceMan = temp;
++                }
++                return resourceMan;
++            }
++        }
++        
++        /// <summary>
++        ///   Overrides the current thread's CurrentUICulture property for all
++        ///   resource lookups using this strongly typed resource class.
++        /// </summary>
++        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
++        internal static global::System.Globalization.CultureInfo Culture {
++            get {
++                return resourceCulture;
++            }
++            set {
++                resourceCulture = value;
++            }
++        }
++    }
++}
+diff --git a/Ticketing/Ticketing/Properties/Resources.resx b/Ticketing/Ticketing/Properties/Resources.resx
+new file mode 100644
+index 0000000..ffecec8
+--- /dev/null
++++ b/Ticketing/Ticketing/Properties/Resources.resx
+@@ -0,0 +1,117 @@
++﻿<?xml version="1.0" encoding="utf-8"?>
++<root>
++  <!-- 
++    Microsoft ResX Schema 
++    
++    Version 2.0
++    
++    The primary goals of this format is to allow a simple XML format 
++    that is mostly human readable. The generation and parsing of the 
++    various data types are done through the TypeConverter classes 
++    associated with the data types.
++    
++    Example:
++    
++    ... ado.net/XML headers & schema ...
++    <resheader name="resmimetype">text/microsoft-resx</resheader>
++    <resheader name="version">2.0</resheader>
++    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
++    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
++    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
++    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
++    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
++        <value>[base64 mime encoded serialized .NET Framework object]</value>
++    </data>
++    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
++        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
++        <comment>This is a comment</comment>
++    </data>
++                
++    There are any number of "resheader" rows that contain simple 
++    name/value pairs.
++    
++    Each data row contains a name, and value. The row also contains a 
++    type or mimetype. Type corresponds to a .NET class that support 
++    text/value conversion through the TypeConverter architecture. 
++    Classes that don't support this are serialized and stored with the 
++    mimetype set.
++    
++    The mimetype is used for serialized objects, and tells the 
++    ResXResourceReader how to depersist the object. This is currently not 
++    extensible. For a given mimetype the value must be set accordingly:
++    
++    Note - application/x-microsoft.net.object.binary.base64 is the format 
++    that the ResXResourceWriter will generate, however the reader can 
++    read any of the formats listed below.
++    
++    mimetype: application/x-microsoft.net.object.binary.base64
++    value   : The object must be serialized with 
++            : System.Serialization.Formatters.Binary.BinaryFormatter
++            : and then encoded with base64 encoding.
++    
++    mimetype: application/x-microsoft.net.object.soap.base64
++    value   : The object must be serialized with 
++            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
++            : and then encoded with base64 encoding.
++
++    mimetype: application/x-microsoft.net.object.bytearray.base64
++    value   : The object must be serialized into a byte array 
++            : using a System.ComponentModel.TypeConverter
++            : and then encoded with base64 encoding.
++    -->
++  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
++    <xsd:element name="root" msdata:IsDataSet="true">
++      <xsd:complexType>
++        <xsd:choice maxOccurs="unbounded">
++          <xsd:element name="metadata">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" />
++              <xsd:attribute name="type" type="xsd:string" />
++              <xsd:attribute name="mimetype" type="xsd:string" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="assembly">
++            <xsd:complexType>
++              <xsd:attribute name="alias" type="xsd:string" />
++              <xsd:attribute name="name" type="xsd:string" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="data">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
++              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
++              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="resheader">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" use="required" />
++            </xsd:complexType>
++          </xsd:element>
++        </xsd:choice>
++      </xsd:complexType>
++    </xsd:element>
++  </xsd:schema>
++  <resheader name="resmimetype">
++    <value>text/microsoft-resx</value>
++  </resheader>
++  <resheader name="version">
++    <value>2.0</value>
++  </resheader>
++  <resheader name="reader">
++    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++  <resheader name="writer">
++    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++</root>
+\ No newline at end of file
+diff --git a/Ticketing/Ticketing/Properties/Settings.Designer.cs b/Ticketing/Ticketing/Properties/Settings.Designer.cs
+new file mode 100644
+index 0000000..63d53e2
+--- /dev/null
++++ b/Ticketing/Ticketing/Properties/Settings.Designer.cs
+@@ -0,0 +1,26 @@
++﻿//------------------------------------------------------------------------------
++// <auto-generated>
++//     This code was generated by a tool.
++//     Runtime Version:4.0.30319.42000
++//
++//     Changes to this file may cause incorrect behavior and will be lost if
++//     the code is regenerated.
++// </auto-generated>
++//------------------------------------------------------------------------------
++
++namespace Ticketing.Properties {
++    
++    
++    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
++    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
++    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
++        
++        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
++        
++        public static Settings Default {
++            get {
++                return defaultInstance;
++            }
++        }
++    }
++}
+diff --git a/Ticketing/Ticketing/Properties/Settings.settings b/Ticketing/Ticketing/Properties/Settings.settings
+new file mode 100644
+index 0000000..abf36c5
+--- /dev/null
++++ b/Ticketing/Ticketing/Properties/Settings.settings
+@@ -0,0 +1,7 @@
++﻿<?xml version='1.0' encoding='utf-8'?>
++<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
++  <Profiles>
++    <Profile Name="(Default)" />
++  </Profiles>
++  <Settings />
++</SettingsFile>
+diff --git a/Ticketing/Ticketing/TicketPrice.cs b/Ticketing/Ticketing/TicketPrice.cs
+new file mode 100644
+index 0000000..fb5dd3d
+--- /dev/null
++++ b/Ticketing/Ticketing/TicketPrice.cs
+@@ -0,0 +1,77 @@
++﻿using System;
++using System.Collections.Generic;
++using System.Linq;
++using System.Text;
++
++
++namespace Ticketing
++{
++    public class TicketPrice
++    {
++        private int section;
++        private int quantity;
++        private bool discount;
++        private decimal amountDue;
++        private decimal mPrice;
++
++        const decimal mdecBalcony = 35.5m;
++        const decimal mdecGeneral = 28.75m;
++        const decimal mdecBox = 62.0m;
++        const decimal mdecDiscount = 5.0m; 
++
++        private int Section
++        {
++            get { return section; }
++            set { section = value; }
++        }
++
++         private int Quantity
++        {
++            get { return quantity; }
++            set { quantity = value; }
++        }
++
++         private bool Discount
++        {
++            get { return discount; }
++            set { discount = value; }
++        }
++
++         public decimal AmountDue
++        {
++            get { return amountDue; }
++            set { amountDue = value; }
++        }
++
++    // Constructor for TcicketPrice
++    public TicketPrice(int section, int quantity, bool discount)
++    {
++        Section = section;
++        Quantity = quantity;
++        Discount = discount;
++        AmountDue = amountDue;
++    }
++
++     public void calculatePrice()
++     {
++
++         switch (section)
++         {
++             case 1:
++                 mPrice = mdecBalcony;
++                 break;
++             case 2:
++                 mPrice = mdecGeneral;
++                 break;
++             case 3:
++                 mPrice = mdecBox;
++                 break;
++         }
++         if (discount)
++         { mPrice -= mdecDiscount; }
++
++         AmountDue = mPrice * quantity;
++
++     }
++    }
++}
+diff --git a/Ticketing/Ticketing/Ticketing.csproj b/Ticketing/Ticketing/Ticketing.csproj
+new file mode 100644
+index 0000000..eb9eb27
+--- /dev/null
++++ b/Ticketing/Ticketing/Ticketing.csproj
+@@ -0,0 +1,104 @@
++﻿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProductVersion>9.0.30729</ProductVersion>
++    <SchemaVersion>2.0</SchemaVersion>
++    <ProjectGuid>{7EA18598-CAB2-48D7-AEFE-1B25B3376F48}</ProjectGuid>
++    <OutputType>WinExe</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>Ticketing</RootNamespace>
++    <AssemblyName>Ticketing</AssemblyName>
++    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <FileUpgradeFlags>
++    </FileUpgradeFlags>
++    <OldToolsVersion>3.5</OldToolsVersion>
++    <UpgradeBackupLocation />
++    <TargetFrameworkProfile />
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
++    <Prefer32Bit>false</Prefer32Bit>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
++    <Prefer32Bit>false</Prefer32Bit>
++  </PropertyGroup>
++  <PropertyGroup>
++    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++    <Reference Include="System.Core">
++      <RequiredTargetFramework>3.5</RequiredTargetFramework>
++    </Reference>
++    <Reference Include="System.Xml.Linq">
++      <RequiredTargetFramework>3.5</RequiredTargetFramework>
++    </Reference>
++    <Reference Include="System.Data.DataSetExtensions">
++      <RequiredTargetFramework>3.5</RequiredTargetFramework>
++    </Reference>
++    <Reference Include="System.Data" />
++    <Reference Include="System.Deployment" />
++    <Reference Include="System.Drawing" />
++    <Reference Include="System.Windows.Forms" />
++    <Reference Include="System.Xml" />
++  </ItemGroup>
++  <ItemGroup>
++    <Compile Include="TicketPrice.cs" />
++    <Compile Include="TicketsForm.cs">
++      <SubType>Form</SubType>
++    </Compile>
++    <Compile Include="TicketsForm.Designer.cs">
++      <DependentUpon>TicketsForm.cs</DependentUpon>
++    </Compile>
++    <Compile Include="Program.cs" />
++    <Compile Include="Properties\AssemblyInfo.cs" />
++    <EmbeddedResource Include="Properties\Resources.resx">
++      <Generator>ResXFileCodeGenerator</Generator>
++      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
++      <SubType>Designer</SubType>
++    </EmbeddedResource>
++    <EmbeddedResource Include="TicketsForm.resx">
++      <DependentUpon>TicketsForm.cs</DependentUpon>
++    </EmbeddedResource>
++    <Compile Include="Properties\Resources.Designer.cs">
++      <AutoGen>True</AutoGen>
++      <DependentUpon>Resources.resx</DependentUpon>
++      <DesignTime>True</DesignTime>
++    </Compile>
++    <None Include="app.config" />
++    <None Include="Properties\Settings.settings">
++      <Generator>SettingsSingleFileGenerator</Generator>
++      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
++    </None>
++    <Compile Include="Properties\Settings.Designer.cs">
++      <AutoGen>True</AutoGen>
++      <DependentUpon>Settings.settings</DependentUpon>
++      <DesignTimeSharedInput>True</DesignTimeSharedInput>
++    </Compile>
++  </ItemGroup>
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+diff --git a/Ticketing/Ticketing/TicketsForm.Designer.cs b/Ticketing/Ticketing/TicketsForm.Designer.cs
+new file mode 100644
+index 0000000..2f51154
+--- /dev/null
++++ b/Ticketing/Ticketing/TicketsForm.Designer.cs
+@@ -0,0 +1,178 @@
++﻿namespace Ticketing
++{
++
++    partial class TicketsForm
++    {
++        /// <summary>
++        /// Required designer variable.
++        /// </summary>
++        private System.ComponentModel.IContainer components = null;
++
++        /// <summary>
++        /// Clean up any resources being used.
++        /// </summary>
++        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
++        protected override void Dispose(bool disposing)
++        {
++            if (disposing && (components != null))
++            {
++                components.Dispose();
++            }
++            base.Dispose(disposing);
++        }
++
++        #region Windows Form Designer generated code
++
++        /// <summary>
++        /// Required method for Designer support - do not modify
++        /// the contents of this method with the code editor.
++        /// </summary>
++        private void InitializeComponent()
++        {
++            this.lblQuantity = new System.Windows.Forms.Label();
++            this.txtQuantity = new System.Windows.Forms.TextBox();
++            this.lblAmountDue = new System.Windows.Forms.Label();
++            this.lblAmount = new System.Windows.Forms.Label();
++            this.chkDiscount = new System.Windows.Forms.CheckBox();
++            this.radBalcony = new System.Windows.Forms.RadioButton();
++            this.radGeneral = new System.Windows.Forms.RadioButton();
++            this.radBox = new System.Windows.Forms.RadioButton();
++            this.grpSection = new System.Windows.Forms.GroupBox();
++            this.cmdCalculate = new System.Windows.Forms.Button();
++            this.grpSection.SuspendLayout();
++            this.SuspendLayout();
++            // 
++            // lblQuantity
++            // 
++            this.lblQuantity.AutoSize = true;
++            this.lblQuantity.Location = new System.Drawing.Point(48, 48);
++            this.lblQuantity.Name = "lblQuantity";
++            this.lblQuantity.Size = new System.Drawing.Size(46, 13);
++            this.lblQuantity.TabIndex = 0;
++            this.lblQuantity.Text = "Quantity";
++            // 
++            // txtQuantity
++            // 
++            this.txtQuantity.Location = new System.Drawing.Point(111, 48);
++            this.txtQuantity.Name = "txtQuantity";
++            this.txtQuantity.Size = new System.Drawing.Size(91, 20);
++            this.txtQuantity.TabIndex = 1;
++            // 
++            // lblAmountDue
++            // 
++            this.lblAmountDue.AutoSize = true;
++            this.lblAmountDue.Location = new System.Drawing.Point(244, 48);
++            this.lblAmountDue.Name = "lblAmountDue";
++            this.lblAmountDue.Size = new System.Drawing.Size(66, 13);
++            this.lblAmountDue.TabIndex = 2;
++            this.lblAmountDue.Text = "Amount Due";
++            // 
++            // lblAmount
++            // 
++            this.lblAmount.AutoSize = true;
++            this.lblAmount.Location = new System.Drawing.Point(327, 53);
++            this.lblAmount.Name = "lblAmount";
++            this.lblAmount.Size = new System.Drawing.Size(0, 13);
++            this.lblAmount.TabIndex = 3;
++            // 
++            // chkDiscount
++            // 
++            this.chkDiscount.AutoSize = true;
++            this.chkDiscount.Location = new System.Drawing.Point(111, 95);
++            this.chkDiscount.Name = "chkDiscount";
++            this.chkDiscount.Size = new System.Drawing.Size(104, 17);
++            this.chkDiscount.TabIndex = 5;
++            this.chkDiscount.Text = "Senior / Student";
++            this.chkDiscount.UseVisualStyleBackColor = true;
++            // 
++            // radBalcony
++            // 
++            this.radBalcony.AutoSize = true;
++            this.radBalcony.Location = new System.Drawing.Point(26, 17);
++            this.radBalcony.Name = "radBalcony";
++            this.radBalcony.Size = new System.Drawing.Size(63, 17);
++            this.radBalcony.TabIndex = 6;
++            this.radBalcony.Text = "Balcony";
++            this.radBalcony.UseVisualStyleBackColor = true;
++            // 
++            // radGeneral
++            // 
++            this.radGeneral.AutoSize = true;
++            this.radGeneral.Checked = true;
++            this.radGeneral.Location = new System.Drawing.Point(26, 40);
++            this.radGeneral.Name = "radGeneral";
++            this.radGeneral.Size = new System.Drawing.Size(62, 17);
++            this.radGeneral.TabIndex = 7;
++            this.radGeneral.TabStop = true;
++            this.radGeneral.Text = "General";
++            this.radGeneral.UseVisualStyleBackColor = true;
++            // 
++            // radBox
++            // 
++            this.radBox.AutoSize = true;
++            this.radBox.Location = new System.Drawing.Point(26, 63);
++            this.radBox.Name = "radBox";
++            this.radBox.Size = new System.Drawing.Size(73, 17);
++            this.radBox.TabIndex = 8;
++            this.radBox.Text = "Box Seats";
++            this.radBox.UseVisualStyleBackColor = true;
++            // 
++            // grpSection
++            // 
++            this.grpSection.Controls.Add(this.radBox);
++            this.grpSection.Controls.Add(this.radGeneral);
++            this.grpSection.Controls.Add(this.radBalcony);
++            this.grpSection.Location = new System.Drawing.Point(52, 141);
++            this.grpSection.Name = "grpSection";
++            this.grpSection.Size = new System.Drawing.Size(139, 111);
++            this.grpSection.TabIndex = 9;
++            this.grpSection.TabStop = false;
++            this.grpSection.Text = "Section";
++            // 
++            // cmdCalculate
++            // 
++            this.cmdCalculate.Location = new System.Drawing.Point(295, 264);
++            this.cmdCalculate.Name = "cmdCalculate";
++            this.cmdCalculate.Size = new System.Drawing.Size(108, 35);
++            this.cmdCalculate.TabIndex = 10;
++            this.cmdCalculate.Text = "Calculate";
++            this.cmdCalculate.UseVisualStyleBackColor = true;
++            this.cmdCalculate.Click += new System.EventHandler(this.cmdCalculate_Click);
++            // 
++            // TicketsForm
++            // 
++            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
++            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
++            this.ClientSize = new System.Drawing.Size(608, 445);
++            this.Controls.Add(this.cmdCalculate);
++            this.Controls.Add(this.grpSection);
++            this.Controls.Add(this.chkDiscount);
++            this.Controls.Add(this.lblAmount);
++            this.Controls.Add(this.lblAmountDue);
++            this.Controls.Add(this.txtQuantity);
++            this.Controls.Add(this.lblQuantity);
++            this.Name = "TicketsForm";
++            this.Text = "Theater Ticket Purchase";
++            this.Load += new System.EventHandler(this.TicketsForm_Load);
++            this.grpSection.ResumeLayout(false);
++            this.grpSection.PerformLayout();
++            this.ResumeLayout(false);
++            this.PerformLayout();
++
++        }
++
++        #endregion
++
++        private System.Windows.Forms.Label lblQuantity;
++        private System.Windows.Forms.TextBox txtQuantity;
++        private System.Windows.Forms.Label lblAmountDue;
++        private System.Windows.Forms.Label lblAmount;
++        private System.Windows.Forms.CheckBox chkDiscount;
++        private System.Windows.Forms.RadioButton radBalcony;
++        private System.Windows.Forms.RadioButton radGeneral;
++        private System.Windows.Forms.RadioButton radBox;
++        private System.Windows.Forms.GroupBox grpSection;
++        private System.Windows.Forms.Button cmdCalculate;
++    }
++}
++
+diff --git a/Ticketing/Ticketing/TicketsForm.cs b/Ticketing/Ticketing/TicketsForm.cs
+new file mode 100644
+index 0000000..c2e6680
+--- /dev/null
++++ b/Ticketing/Ticketing/TicketsForm.cs
+@@ -0,0 +1,49 @@
++﻿using System;
++using System.Collections.Generic;
++using System.ComponentModel;
++using System.Data;
++using System.Drawing;
++using System.Linq;
++using System.Text;
++using System.Windows.Forms;
++
++namespace Ticketing
++{
++    public partial class TicketsForm : Form
++    {
++        TicketPrice mTicketPrice;
++        int mSection = 2;
++        int mQuantity = 0;
++        bool mDiscount = false;
++
++        public TicketsForm()
++        {
++            InitializeComponent();
++        }
++
++        private void TicketsForm_Load(object sender, EventArgs e)
++        {
++
++        }
++
++        private void cmdCalculate_Click(object sender, EventArgs e)
++        {
++            mQuantity = int.Parse(txtQuantity.Text);
++
++            if (chkDiscount.Checked)
++                { mDiscount = true; }
++
++            if (radBalcony.Checked)
++                { mSection = 1; }
++            if (radGeneral.Checked)
++                { mSection = 2; }
++            if (radBox.Checked)
++                { mSection = 3; }
++
++            mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount);
++
++            mTicketPrice.calculatePrice();
++            lblAmount.Text = System.Convert.ToString(mTicketPrice.AmountDue);
++        }
++     }
++}
+diff --git a/Ticketing/Ticketing/TicketsForm.resx b/Ticketing/Ticketing/TicketsForm.resx
+new file mode 100644
+index 0000000..c7e0d4b
+--- /dev/null
++++ b/Ticketing/Ticketing/TicketsForm.resx
+@@ -0,0 +1,120 @@
++<?xml version="1.0" encoding="utf-8"?>
++<root>
++  <!-- 
++    Microsoft ResX Schema 
++    
++    Version 2.0
++    
++    The primary goals of this format is to allow a simple XML format 
++    that is mostly human readable. The generation and parsing of the 
++    various data types are done through the TypeConverter classes 
++    associated with the data types.
++    
++    Example:
++    
++    ... ado.net/XML headers & schema ...
++    <resheader name="resmimetype">text/microsoft-resx</resheader>
++    <resheader name="version">2.0</resheader>
++    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
++    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
++    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
++    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
++    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
++        <value>[base64 mime encoded serialized .NET Framework object]</value>
++    </data>
++    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
++        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
++        <comment>This is a comment</comment>
++    </data>
++                
++    There are any number of "resheader" rows that contain simple 
++    name/value pairs.
++    
++    Each data row contains a name, and value. The row also contains a 
++    type or mimetype. Type corresponds to a .NET class that support 
++    text/value conversion through the TypeConverter architecture. 
++    Classes that don't support this are serialized and stored with the 
++    mimetype set.
++    
++    The mimetype is used for serialized objects, and tells the 
++    ResXResourceReader how to depersist the object. This is currently not 
++    extensible. For a given mimetype the value must be set accordingly:
++    
++    Note - application/x-microsoft.net.object.binary.base64 is the format 
++    that the ResXResourceWriter will generate, however the reader can 
++    read any of the formats listed below.
++    
++    mimetype: application/x-microsoft.net.object.binary.base64
++    value   : The object must be serialized with 
++            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
++            : and then encoded with base64 encoding.
++    
++    mimetype: application/x-microsoft.net.object.soap.base64
++    value   : The object must be serialized with 
++            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
++            : and then encoded with base64 encoding.
++
++    mimetype: application/x-microsoft.net.object.bytearray.base64
++    value   : The object must be serialized into a byte array 
++            : using a System.ComponentModel.TypeConverter
++            : and then encoded with base64 encoding.
++    -->
++  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
++    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
++    <xsd:element name="root" msdata:IsDataSet="true">
++      <xsd:complexType>
++        <xsd:choice maxOccurs="unbounded">
++          <xsd:element name="metadata">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" />
++              </xsd:sequence>
++              <xsd:attribute name="name" use="required" type="xsd:string" />
++              <xsd:attribute name="type" type="xsd:string" />
++              <xsd:attribute name="mimetype" type="xsd:string" />
++              <xsd:attribute ref="xml:space" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="assembly">
++            <xsd:complexType>
++              <xsd:attribute name="alias" type="xsd:string" />
++              <xsd:attribute name="name" type="xsd:string" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="data">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
++              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
++              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
++              <xsd:attribute ref="xml:space" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="resheader">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" use="required" />
++            </xsd:complexType>
++          </xsd:element>
++        </xsd:choice>
++      </xsd:complexType>
++    </xsd:element>
++  </xsd:schema>
++  <resheader name="resmimetype">
++    <value>text/microsoft-resx</value>
++  </resheader>
++  <resheader name="version">
++    <value>2.0</value>
++  </resheader>
++  <resheader name="reader">
++    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++  <resheader name="writer">
++    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++</root>
+\ No newline at end of file
+diff --git a/Ticketing/Ticketing/app.config b/Ticketing/Ticketing/app.config
+new file mode 100644
+index 0000000..b3bea73
+--- /dev/null
++++ b/Ticketing/Ticketing/app.config
+@@ -0,0 +1,4 @@
++<?xml version="1.0"?>
++<configuration>
++<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup>
++</configuration>
+-- 
+2.43.0.windows.1
+

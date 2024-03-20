@@ -1,0 +1,25 @@
+From d87f660ed6b6f09f8f2c0a0f89b158782a75ea94 Mon Sep 17 00:00:00 2001
+From: 001183643 <zeinab.ziabari@student.tafesa.edu.au>
+Date: Wed, 20 Mar 2024 19:45:35 +1030
+Subject: [PATCH 2/4] Changing the balcony price to 40.5
+
+---
+ Ticketing/Ticketing/TicketPrice.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Ticketing/Ticketing/TicketPrice.cs b/Ticketing/Ticketing/TicketPrice.cs
+index fb5dd3d..01d1b38 100644
+--- a/Ticketing/Ticketing/TicketPrice.cs
++++ b/Ticketing/Ticketing/TicketPrice.cs
+@@ -14,7 +14,7 @@ namespace Ticketing
+         private decimal amountDue;
+         private decimal mPrice;
+ 
+-        const decimal mdecBalcony = 35.5m;
++        const decimal mdecBalcony = 40.5m;
+         const decimal mdecGeneral = 28.75m;
+         const decimal mdecBox = 62.0m;
+         const decimal mdecDiscount = 5.0m; 
+-- 
+2.43.0.windows.1
+
